@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject_name: MyString
+  subject_number: MyString
+  lecture_number: MyString
+  lecturer: MyString
+  capacity: 1
+  enrolled: 1
+
+two:
+  subject_name: MyString
+  subject_number: MyString
+  lecture_number: MyString
+  lecturer: MyString
+  capacity: 1
+  enrolled: 1
