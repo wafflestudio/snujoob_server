@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 			post 'unregister'
 		end
 	end
+	resources :subjects
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
