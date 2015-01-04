@@ -6,7 +6,12 @@ Rails.application.routes.draw do
 		post 'login' => :create
 	end
 
-	resources :users
+	resources :users do
+		member do
+			post 'register'
+			post 'unregister'
+		end
+	end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

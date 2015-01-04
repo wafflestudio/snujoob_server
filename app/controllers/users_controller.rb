@@ -33,4 +33,26 @@ class UsersController < ApplicationController
 		user = User.find params[:id]
 		user.destroy
 	end
+
+	def register
+		token = params[:token]
+		user = User.find params[:id]
+		if user and user.token == token
+			subject = Subject.find params[:subject_id]
+			if subject
+				user.subjects << subject
+			end
+		end
+	end
+
+	def unregister
+		token = params[:token]
+		user = User.find params[:id]
+		if user and user.token == token
+			subject = Subject.find params[:subject_id]
+			if subject
+				user.subjects.delete(subject)
+			end
+		end
+	end
 end
