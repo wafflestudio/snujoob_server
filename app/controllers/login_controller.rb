@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'digest'
 
 class LoginController < ApplicationController
 	def new
@@ -9,8 +10,7 @@ class LoginController < ApplicationController
 		password = params[:password]
 		# 데이터 받기
 		user = User.find_by student_number: student_number # 유저 검색
-		# 비번 해시화
-		if user and user.password == password # 유저가 있고 비번이 맞으면
+		if user and user.password == Digest::SHA2.hexdigest(password + user.salt) # 유저가 있고 비번이 맞으면
 			user.token = SecureRandom.hex # 토큰 생성
 			render json: { result: 'success', id: user.id, token: user.token } # 정보 반환
 		else
