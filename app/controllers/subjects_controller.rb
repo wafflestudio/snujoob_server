@@ -14,4 +14,13 @@ class SubjectsController < ApplicationController
 			format.json { render json: { subject: @subject } }
 		end
 	end
+
+	def search
+		keyword = params[:keyword]
+		@subjects = Subject.search(keyword)
+		respond_to do |format|
+			format.html
+			format.json { render json: { result: @subjects } }
+		end
+	end
 end
