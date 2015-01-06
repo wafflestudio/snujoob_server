@@ -8,11 +8,7 @@ class UsersController < ApplicationController
 		token = params[:token]
 		user = User.find params[:id]
 		if user and user.token == token
-			subjects = Array.new
-			for subject in user.subjects
-				subjects << { 'id' => subject.id, 'subject_name' => subject.subject_name }
-			end
-			render json: { id: user.id, student_number: user.student_number, subjects: subjects }
+			render json: { id: user.id, student_number: user.student_number, subjects: user.subjects }
 		else
 			render json: { result: 'fail' }
 		end
@@ -43,7 +39,10 @@ class UsersController < ApplicationController
 			subject = Subject.find params[:subject_id]
 			if subject
 				user.subjects << subject
+				render json: { result: 'success' }
 			end
+		else
+			render json: { result: 'fail' }
 		end
 	end
 
@@ -54,7 +53,10 @@ class UsersController < ApplicationController
 			subject = Subject.find params[:subject_id]
 			if subject
 				user.subjects.delete(subject)
+				render json: { result: 'success' }
 			end
+		else
+			render json: { result: 'fail' }
 		end
 	end
 end
