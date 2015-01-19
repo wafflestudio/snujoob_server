@@ -75,6 +75,7 @@ open("#{txt_filename}.tmp", "w") do |file|
       course_title = course_title + "(#{m[i,7]})"
     end
     course_title = course_title.gsub(/;/, ':')
+    course_title = course_title.gsub(/\"/, '\'')
 		credit = m[i,8].to_i
 		class_time = m[i,11]
 		location = m[i,13]
@@ -88,7 +89,3 @@ open("#{txt_filename}.tmp", "w") do |file|
 		file.puts "#{i - 2};#{course_title};#{course_number};#{lecture_number};#{instructor};#{quota};#{enrollment};;"
 	end
 end
-
-#db update
-'sqlite3 ../db/development.sqlite3 < dbupdate'
-puts 'update the db'
