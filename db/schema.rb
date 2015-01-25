@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150103093924) do
+ActiveRecord::Schema.define(version: 20150121170559) do
 
   create_table "subjects", force: true do |t|
     t.string   "subject_name"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20150103093924) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "token"
+    t.string   "device"
+    t.string   "reg_id"
   end
 
 end
