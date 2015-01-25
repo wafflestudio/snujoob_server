@@ -19,6 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every '*/2 * * * *' do
+every '* * * * *' do
   command "~/practice/snupick/fetch/autofetch.sh"
+	runner "Subject.push_all"
 end
