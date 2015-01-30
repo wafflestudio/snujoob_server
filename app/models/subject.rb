@@ -18,7 +18,8 @@ class Subject < ActiveRecord::Base
 		sleep 20
 		puts "start push"
 		all.each do |subject|
-			subject.push() if (subject.capacity_enrolled == subject.capacity and subject.capacity > subject.enrolled) or (subject.capacity_enrolled != subject.capacity and subject.capacity_enrolled > subject.enrolled)
+			subject.push() if (subject.capacity_enrolled == subject.capacity and subject.capacity - subject.capacity % 2 > subject.enrolled) \
+				or (subject.capacity_enrolled != subject.capacity and subject.capacity_enrolled - subject.capacity_enrolled % 2 > subject.enrolled)
 			#subject.push() if subject.capacity > subject.enrolled
 		end
 		puts "finish push"
