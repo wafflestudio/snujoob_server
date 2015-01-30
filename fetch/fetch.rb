@@ -74,18 +74,21 @@ open("#{txt_filename}.tmp", "w") do |file|
     if m[i,7].to_s.length > 1
       course_title = course_title + "(#{m[i,7]})"
     end
-    course_title = course_title.gsub(/;/, ':')
-    course_title = course_title.gsub(/\"/, '\'')
+    course_title = course_title.gsub(/;/, ':').gsub(/\"/, '\'')
 		credit = m[i,8].to_i
 		class_time = m[i,11]
 		location = m[i,13]
 		instructor = m[i,14]
 		quota = m[i,15].to_i
+		quota_enrolled = nil
+		if m[i,15].index('(')
+			quota_enrolled = m[i,15][m[i,15].index('(')+1..-1].to_i
+		end
 		enrollment = m[i,16].to_i
 		remark = m[i,17].gsub(/
 \n/, " ")
 		snuev_lec_id = snuev_eval_score = nil
 
-		file.puts "#{i - 2};#{course_title};#{course_number};#{lecture_number};#{instructor};#{quota};#{enrollment};;"
+		file.puts "#{i - 2};#{course_title};#{course_number};#{lecture_number};#{instructor};#{quota};#{enrollment};;;#{quota_enrolled}"
 	end
 end
