@@ -1,28 +1,17 @@
-== README
+==SNUJoob
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+===How To Launch
 
-Things you may want to cover:
+wheneverize -i
+crontab -e
+edit crontab to run every 30 seconds (add sleep 10 to first and 10 to second)
+rails s
 
-* Ruby version
+===How To Service
 
-* System dependencies
+People has the Android app
+and use that to access to the service
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+===주의할 점
+수강신청 접근에 따라서 푸시알림 조건을 변경해주어야한다
+app/models/subject.rb를 열어서 주석을 해제하거나 등록하자
