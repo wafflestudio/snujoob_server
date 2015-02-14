@@ -89,6 +89,11 @@ open("#{txt_filename}.tmp", "w") do |file|
 \n/, " ")
 		snuev_lec_id = snuev_eval_score = nil
 
-		file.puts "#{i - 2};#{course_title};#{course_number};#{lecture_number};#{instructor};#{quota};#{enrollment};;;#{quota_enrolled}"
+		index = course_number + lecture_number
+		a = 0
+		index.split('').each_with_index do |c, y|
+			a += c.ord * 10 ** y
+		end
+		file.puts "#{a % 2147483647};#{course_title};#{course_number};#{lecture_number};#{instructor};#{quota};#{enrollment};;;#{quota_enrolled}"
 	end
 end
