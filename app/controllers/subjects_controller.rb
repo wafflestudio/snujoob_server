@@ -1,6 +1,6 @@
 class SubjectsController < ApplicationController
 	def index
-		@subjects = Subject.all
+		@subjects = Subject.all.order(subject_number: :asc).order(lecture_number: :asc)
 		respond_to do |format|
 			format.html
 			format.json { render json: { subjects: @subjects } }
@@ -17,7 +17,7 @@ class SubjectsController < ApplicationController
 
 	def search
 		keyword = params[:keyword]
-		@subjects = Subject.search(keyword)
+		@subjects = Subject.search(keyword).order(subject_number: :asc).order(lecture_number: :asc)
 		respond_to do |format|
 			format.html
 			format.json { render json: { result: @subjects } }
