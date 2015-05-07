@@ -2,24 +2,20 @@
 
 ===Requirements
 
-gem install roo
-
+gem install roo  
+gem install roo-xls  
 gem install whenever
 
 ===How To Launch
 
-wheneverize -i
-
-crontab -e
-
-edit crontab to run every 30 seconds (add sleep 10 to first and 10 to second)
-
+wheneverize -i  
+crontab -e  
+edit crontab to run every 30 seconds (add sleep 10 to first and 10 to second)  
 rails s
 
 ===How To Service
 
-People has the Android app
-
+People has the Android app  
 and use that to access to the service
 
 ===주의할 점
