@@ -4,6 +4,7 @@
 #인자 : year semester
 require 'net/http'
 require 'roo'
+require 'roo-xls'
 require 'json'
 
 if ARGV.length != 2 then
