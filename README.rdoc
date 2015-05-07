@@ -8,6 +8,7 @@
 
 ===How To Launch
 
+    rake db:migrate
     whenever .
     cd config
     wheneverize -i
