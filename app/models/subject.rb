@@ -41,7 +41,7 @@ class Subject < ActiveRecord::Base
       for user in a
         registration_ids << user.reg_id
       end
-      options = {data: {msg: "available", subject_name: subject_name, id: id } }
+      options = {data: {msg: "available", subject_name: subject_name, id: id, lecturer: lecturer, subject_number: subject_number, lecture_number: lecture_number } }
       response = gcm.send_notification(registration_ids, options)
     end
     return nil
