@@ -20,6 +20,6 @@
 # Learn more: http://github.com/javan/whenever
 
 every '* * * * *' do
-  command "~/practice/snupick/fetch/autofetch.sh"
-	runner "Subject.push_all"
+  command "/home/snujoob/SNUJoobServer/fetch/autofetch.sh"
+  runner "Subject.push_all"
 end
