@@ -8,19 +8,19 @@ require 'roo-xls'
 require 'json'
 
 if ARGV.length != 2 then
-	puts "Argument error !"
-	puts "usage example : ruby fetch.rb 2012 S"
-	exit!
+  puts "Argument error !"
+  puts "usage example : ruby fetch.rb 2012 S"
+  exit!
 end
 year = ARGV[0]
 semester = ARGV[1] #1/S/2/W
 
 if !(year.to_i > 2000) then
-	puts "First argument should be year"
-	exit!
+  puts "First argument should be year"
+  exit!
 elsif !["1", "2", "S", "W"].include?(semester) then
-	puts "Second argument should be in [1, 2, S, W]"
-	exit!
+  puts "Second argument should be in [1, 2, S, W]"
+  exit!
 end
 
 #download 
@@ -49,7 +49,7 @@ data = "srchCond=1&pageNo=1&workType=EX&sortKey=&sortOrder=&srchOpenSchyy=#{year
 res, data = http.post(path, data)
 
 open(xls_filename,"w") do |file|
-	file.print(res.body)
+  file.print(res.body)
 end
 puts "download complete : #{year}_#{semester}.xls"
 
@@ -59,42 +59,42 @@ excel = Roo::Excel.new(xls_filename);
 m = excel.to_matrix
 
 open("#{txt_filename}.tmp", "w") do |file|
-	#file.puts "#{year}/#{semester}"
-	#file.puts Time.now.localtime().strftime("%Y-%m-%d %H:%M:%S")
-	#file.puts "subject_name;subject_number;lecture_number;lecturer;capacity;enrolled"
-	4.upto(m.row_size-1) do |i|
-		classification = m[i,0]
-		department = m[i,2]
-		academic_year = m[i,3]
+  #file.puts "#{year}/#{semester}"
+  #file.puts Time.now.localtime().strftime("%Y-%m-%d %H:%M:%S")
+  #file.puts "subject_name;subject_number;lecture_number;lecturer;capacity;enrolled"
+  4.upto(m.row_size-1) do |i|
+    classification = m[i,0]
+    department = m[i,2]
+    academic_year = m[i,3]
     if academic_year == "학사"
       academic_year = m[i,4]
     end
-		course_number = m[i,5]
-		lecture_number = m[i,6]
-		course_title = m[i,7]
+    course_number = m[i,5]
+    lecture_number = m[i,6]
+    course_title = m[i,7]
     if m[i,8].to_s.length > 1
       course_title = course_title + "(#{m[i,8]})"
     end
     course_title = course_title.gsub(/;/, ':').gsub(/\"/, '\'')
-		credit = m[i,9].to_i
-		class_time = m[i,12]
-		location = m[i,14]
-		instructor = m[i,15]
-		quota = m[i,16].split(" ")[0].to_i
-		quota_enrolled = nil
-		if m[i,15].index('(')
-			quota_enrolled = m[i,15][m[i,15].index('(')+1..-1].to_i
-		end
-		enrollment = m[i,17].to_i
-		remark = m[i,18].gsub(/
+    credit = m[i,9].to_i
+    class_time = m[i,12]
+    location = m[i,14]
+    instructor = m[i,15]
+    quota = m[i,16].split(" ")[0].to_i
+    quota_enrolled = nil
+    if m[i,15].index('(')
+      quota_enrolled = m[i,15][m[i,15].index('(')+1..-1].to_i
+    end
+    enrollment = m[i,17].to_i
+    remark = m[i,18].gsub(/
 \n/, " ")
-		snuev_lec_id = snuev_eval_score = nil
+    snuev_lec_id = snuev_eval_score = nil
 
-		index = course_number + lecture_number
-		a = 0
-		index.split('').each_with_index do |c, y|
-			a += c.ord * 10 ** y
-		end
-		file.puts "#{a % 2147483647};#{course_title};#{course_number};#{lecture_number};#{instructor};#{quota};#{enrollment};;;#{quota_enrolled}"
-	end
+    index = course_number + lecture_number
+    a = 0
+    index.split('').each_with_index do |c, y|
+      a += c.ord * 10 ** y
+    end
+    file.puts "#{a % 2147483647};#{course_title};#{course_number};#{lecture_number};#{instructor};#{quota};#{enrollment};;;#{quota_enrolled}"
+  end
 end
