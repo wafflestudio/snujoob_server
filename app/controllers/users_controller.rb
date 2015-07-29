@@ -23,7 +23,11 @@ class UsersController < ApplicationController
     if user.save
       render json: { result: 'success' }
     else
-      render json: { result: 'fail' }
+      if User.find_by student_number: user.student_number
+        render json: { result: 'already' }
+      else
+        render json: { result: 'fail' }
+      end
     end
   end
 
