@@ -18,13 +18,11 @@ class Subject < ActiveRecord::Base
     sleep 20
     puts "start push"
     Subject.includes(:users).where.not(users: {id: nil}).each do |subject|
-      #짝홀 제한 해제
-      #subject.push() if (subject.capacity_enrolled == subject.capacity and subject.capacity > subject.enrolled) \
-      #  or (subject.capacity_enrolled != subject.capacity and subject.capacity_enrolled > subject.enrolled)
+      #짝홀 제한
+      subject.push() if (if subject.capacity_enrolled == 0 then subject.capacity / 2 * 2  > subject.enrolled else subject.capacity_enrolled / 2 * 2 > subject.enrolled end)
 
-      #짝홀 제한 있을 때
-      subject.push() if (subject.capacity_enrolled == subject.capacity and subject.capacity - subject.capacity % 2 > subject.enrolled) \
-        or (subject.capacity_enrolled != subject.capacity and subject.capacity_enrolled - subject.capacity_enrolled % 2 > subject.enrolled)
+      #짝홀 제한 해제
+      #subject.push() if (if subject.capacity_enrolled == 0 then subject.capacity > subject.enrolled else subject.capacity_enrolled > subject.enrolled end)
 
       #전체학번 신청 || 전체학번 수강신청변경기간
       #subject.push() if subject.capacity > subject.enrolled
