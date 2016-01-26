@@ -17,4 +17,16 @@ class User < ActiveRecord::Base
   def check_password(password)
     self.password == Digest::SHA256.hexdigest(password + self.salt)
   end
+
+  def update_gcm_token(gcm_token)
+    self.gcm_token = gcm_token
+  end
+
+  def update_token
+    self.token = SecureRandom.hex
+  end
+
+  def check_token(token)
+    self.login_token == token
+  end
 end
