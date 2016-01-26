@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
     self.gcm_token = gcm_token
   end
 
-  def update_token
+  def generate_token
     self.token = SecureRandom.hex
   end
 
