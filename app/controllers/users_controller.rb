@@ -41,4 +41,16 @@ class UsersController < ApplicationController
       }
     end
   end
+
+  def show
+    token = request.headers['HTTP_X_USER_TOKEN']
+    user = User.includes(:lectures).find_by student_id: params[:student_id]
+    subjects = []
+    if user and user.check_token token
+      subjects = user.lectures.as_json(methods: [:competitors_number])
+    end
+    render json: {
+      subjects: subjects,
+    }
+  end
 end
