@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :watchings
   has_many :lectures, through: :watchings
 
-  validates :student_id, presence: true, uniqueness: true, format: { with: /\A20[0-9]{2}-[12][0-9]{4}\z/ }
+  validates! :student_id, presence: true, uniqueness: true, format: { with: /\A20[0-9]{2}-[12][0-9]{4}\z/ }
   validates :password, presence: true
   validates :salt, presence: true
 

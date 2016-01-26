@@ -25,4 +25,21 @@ class UsersController < ApplicationController
       result: (user.check_token token),
     }
   end
+
+  def create
+    begin
+      user = User.new
+      user.student_id = params[:student_id]
+      user.set_password params[:password]
+      user.save
+      render json: {
+        'result': true,
+      }
+    rescue ActiveModel::StrictValidationFailed => e
+      render json: {
+        'result': false,
+        'message': e.message,
+      }
+    end
+  end
 end
