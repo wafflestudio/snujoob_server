@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_token
-    self.token = SecureRandom.hex
+    self.login_token = SecureRandom.hex
   end
 
   def check_token(token)
