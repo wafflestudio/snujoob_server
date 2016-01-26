@@ -44,13 +44,16 @@ class UsersController < ApplicationController
 
   def show
     token = request.headers['HTTP_X_USER_TOKEN']
-    user = User.includes(:lectures).find_by student_id: params[:student_id]
-    subjects = []
+    user = User.includes(:lectures, :watchings).find_by student_id: params[:student_id]
+    lectures = []
+    watching_list = []
     if user and user.check_token token
-      subjects = user.lectures.as_json(methods: [:competitors_number])
+      lectures = user.lectures.as_json(except: [:created_at, :updated_at], methods: [:competitors_number])
+      watching_list = Watching.where(user_id: user.id, watch: true).as_json(only: :lecture_id)
     end
     render json: {
-      subjects: subjects,
+      lectures: lectures,
+      watching_list: watching_list
     }
   end
 
@@ -76,6 +79,36 @@ class UsersController < ApplicationController
     if user and user.check_token token
       lecture = Lecture.find params[:lecture_id]
       user.lectures.delete lecture
+      render json: {
+        result: true,
+      }
+    else
+      render json: {
+        result: false,
+      }
+    end
+  end
+
+  def watch
+    token = request.headers['HTTP_X_USER_TOKEN']
+    user = User.includes(:lectures).find_by student_id: params[:student_id]
+    if user and user.check_token token
+      Watching.find_by(user_id: user.id, lecture_id: params[:lecture_id]).update(watch: true)
+      render json: {
+        result: true,
+      }
+    else
+      render json: {
+        result: false,
+      }
+    end
+  end
+
+  def unwatch
+    token = request.headers['HTTP_X_USER_TOKEN']
+    user = User.includes(:lectures).find_by student_id: params[:student_id]
+    if user and user.check_token token
+      Watching.find_by(user_id: user.id, lecture_id: params[:lecture_id]).update(watch: false)
       render json: {
         result: true,
       }
