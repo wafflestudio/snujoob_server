@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125231321) do
+ActiveRecord::Schema.define(version: 20160126192515) do
+
+  create_table "lectures", force: :cascade do |t|
+    t.string   "subject_number",    null: false
+    t.string   "lecture_number",    null: false
+    t.string   "lecturer"
+    t.string   "name"
+    t.integer  "enrolled"
+    t.integer  "whole_capacity"
+    t.integer  "enrolled_capacity"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "student_id",  null: false
@@ -21,6 +33,14 @@ ActiveRecord::Schema.define(version: 20160125231321) do
     t.string   "login_token"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "watchings", force: :cascade do |t|
+    t.integer  "lecture_id"
+    t.integer  "user_id"
+    t.boolean  "watch",      default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end
