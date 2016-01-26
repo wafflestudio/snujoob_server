@@ -118,4 +118,20 @@ class UsersController < ApplicationController
       }
     end
   end
+
+  def update_gcm
+    token = request.headers['HTTP_X_USER_TOKEN']
+    user = User.includes(:lectures).find_by student_id: params[:student_id]
+    if user and user.check_token token
+      user.update_gcm params[:gcm_token]
+      user.save
+      render json: {
+        result: true,
+      }
+    else
+      render json: {
+        result: false,
+      }
+    end
+  end
 end
