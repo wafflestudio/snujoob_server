@@ -19,7 +19,6 @@ class UsersController < ApplicationController
 
   def auto_login
     token = request.headers['HTTP_X_USER_TOKEN']
-    puts token
     user = User.find_by student_id: params[:student_id]
     render json: {
       result: (user.check_token token),
