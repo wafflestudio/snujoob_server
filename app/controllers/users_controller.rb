@@ -53,4 +53,36 @@ class UsersController < ApplicationController
       subjects: subjects,
     }
   end
+
+  def register
+    token = request.headers['HTTP_X_USER_TOKEN']
+    user = User.includes(:lectures).find_by student_id: params[:student_id]
+    if user and user.check_token token
+      lecture = Lecture.find params[:lecture_id]
+      user.lectures << lecture
+      render json: {
+        result: true,
+      }
+    else
+      render json: {
+        result: false,
+      }
+    end
+  end
+
+  def unregister
+    token = request.headers['HTTP_X_USER_TOKEN']
+    user = User.includes(:lectures).find_by student_id: params[:student_id]
+    if user and user.check_token token
+      lecture = Lecture.find params[:lecture_id]
+      user.lectures.delete lecture
+      render json: {
+        result: true,
+      }
+    else
+      render json: {
+        result: false,
+      }
+    end
+  end
 end
