@@ -19,3 +19,6 @@
 # Ignore file related with fetching lectures
 /fetch/*.xls
 /config/snujoob.yml
+
+# Ignore gcm api key
+/config/gcm_api_key.yml

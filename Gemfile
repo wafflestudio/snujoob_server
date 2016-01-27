@@ -48,3 +48,4 @@ end
 gem 'roo'
 gem 'roo-xls'
 
+gem 'gcm'
