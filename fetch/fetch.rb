@@ -12,12 +12,12 @@ require 'yaml'
 init_time = `date +%s.%N`.to_f
 snujoob = YAML::load_file("config/snujoob.yml")||{}
 year = snujoob["year"]
-semester = snujoob["semester"].to_s #1/S/2/W
+semester = snujoob["semester"] #1/S/2/W
 
 if !(year.to_i > 2010) then
   puts "First argument should be year"
   exit!
-elsif !["1", "2", "S", "W"].include?(semester) then
+elsif ![1, 2, "1", "2", "S", "W"].include?(semester) then
   puts "Second argument should be in [1, 2, S, W]"
   exit!
 end
