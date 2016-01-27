@@ -15,3 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore file related with fetching lectures
+/fetch/*.xls
+/config/snujoob.yml
