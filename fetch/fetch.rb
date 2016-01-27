@@ -77,8 +77,21 @@ m = excel.to_matrix
   id = id_string.to_i(16) % 2147483647 + 1
   begin
     lecture = Lecture.find id
+    update = false
     if lecture.enrolled != enrolled
-      lecture.update(enrolled: enrolled)
+      lecture.enrolled = enrolled
+      update = true
+    end
+    if lecture.lecturer != lecturer
+      lecture.lecturer = lecturer
+      update = true
+    end
+    if lecture.time != time
+      lecture.time = time
+      update = true
+    end
+    if update
+      lecture.save
     end
   rescue
     Lecture.create({
