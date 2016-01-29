@@ -18,8 +18,8 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+env :PATH, '/home/glglgozz/.rbenv/shims:/home/glglgozz/.rbenv/bin:/home/glglgozz/.rbenv/shims:/home/glglgozz/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games'
 
-every '* * * * *' do
-  command "/home/snujoob/SNUJoobServer/fetch/autofetch.sh"
-  runner "Subject.push_all"
+every 1.minutes do
+  runner "fetch/fetch.rb", environment: :development
 end

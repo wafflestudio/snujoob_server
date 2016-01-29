@@ -1,22 +1,16 @@
 Rails.application.routes.draw do
-	root 'welcome#index'
+  post 'login' => 'users#login'
+  post 'auto_login' => 'users#auto_login'
+  post 'join' => 'users#create'
 
-	controller :login do
-		get 'login' => :new
-		post 'login' => :create
-	end
+  get 'search' => 'lectures#search'
 
-	resources :users do
-		member do
-			post 'register'
-			post 'unregister'
-		end
-	end
-	resources :subjects do
-		collection do
-			get 'search'
-		end
-	end
+  get 'users/:student_id' => 'users#show'
+  post 'users/:student_id/register' => 'users#register'
+  post 'users/:student_id/unregister' => 'users#unregister'
+  post 'users/:student_id/watch' => 'users#watch'
+  post 'users/:student_id/unwatch' => 'users#unwatch'
+  post 'users/:student_id/update-gcm' => 'users#update_gcm'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,3 +1,0 @@
-.separator ';'
-delete from subjects;
-.import  txt/2015_2.txt.tmp subjects

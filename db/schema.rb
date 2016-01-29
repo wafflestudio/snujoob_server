@@ -11,38 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727184909) do
+ActiveRecord::Schema.define(version: 20160126212112) do
 
-  create_table "subjects", force: true do |t|
-    t.string   "subject_name"
-    t.string   "subject_number"
-    t.string   "lecture_number"
+  create_table "lectures", force: :cascade do |t|
+    t.string   "subject_number",    null: false
+    t.string   "lecture_number",    null: false
     t.string   "lecturer"
-    t.integer  "capacity"
+    t.string   "name"
     t.integer  "enrolled"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "capacity_enrolled"
-    t.string   "class_time"
+    t.integer  "whole_capacity"
+    t.integer  "enrolled_capacity"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "time"
   end
 
-  create_table "subjects_users", id: false, force: true do |t|
-    t.integer "subject_id"
-    t.integer "user_id"
+  create_table "users", force: :cascade do |t|
+    t.string   "student_id",  null: false
+    t.string   "password",    null: false
+    t.string   "salt",        null: false
+    t.string   "gcm_token"
+    t.string   "login_token"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "subjects_users", ["subject_id"], name: "index_subjects_users_on_subject_id"
-  add_index "subjects_users", ["user_id"], name: "index_subjects_users_on_user_id"
-
-  create_table "users", force: true do |t|
-    t.string   "student_number"
-    t.string   "password"
-    t.string   "salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "token"
-    t.string   "device"
-    t.string   "reg_id"
+  create_table "watchings", force: :cascade do |t|
+    t.integer  "lecture_id"
+    t.integer  "user_id"
+    t.boolean  "watch",      default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end

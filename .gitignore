@@ -12,9 +12,13 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log/*
+!/log/.keep
 /tmp
 
-# Ignore subjects db list
-/fetch/txt
-/fetch/xls
+# Ignore file related with fetching lectures
+/fetch/*.xls
+/config/snujoob.yml
+
+# Ignore gcm api key
+/config/gcm_api_key.yml

@@ -1,6 +1,32 @@
+require 'digest'
+require 'securerandom'
+
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :subjects
-  validates :student_number,
-    format: { with: /20[0-9]{2}-[0-9]{5}/, message: "is not student number" },
-    uniqueness: true
+  has_many :watchings
+  has_many :lectures, through: :watchings
+
+  validates! :student_id, presence: true, uniqueness: true, format: { with: /\A20[0-9]{2}-[12][0-9]{4}\z/ }
+  validates :password, presence: true
+  validates :salt, presence: true
+
+  def set_password(password)
+    self.salt = SecureRandom.hex
+    self.password = Digest::SHA256.hexdigest(password + self.salt)
+  end
+
+  def check_password(password)
+    self.password == Digest::SHA256.hexdigest(password + self.salt)
+  end
+
+  def update_gcm_token(gcm_token)
+    self.gcm_token = gcm_token
+  end
+
+  def generate_token
+    self.login_token = SecureRandom.hex
+  end
+
+  def check_token(token)
+    self.login_token == token
+  end
 end
