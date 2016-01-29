@@ -73,27 +73,18 @@ m = excel.to_matrix
   end
   enrolled = m[i,17].to_i
 
-  id_string = Digest::SHA1.hexdigest(subject_number + lecture_number)
+  id_string = Digest::SHA1.hexdigest(subject_number + lecture_number + lecture_number)
   id = id_string.to_i(16) % 2147483647 + 1
   begin
     lecture = Lecture.find id
-    update = false
-    if lecture.enrolled != enrolled
+    if lecture.enrolled != enrolled or lecture.lecturer != lecturer or lecture.time != time
+      `echo '#{`date '+%Y-%m-%d %H:%M:%S'`.sub(/\n/, '')} update #{subject_number} #{lecture_number} #{name} #{lecture.enrolled} -> #{enrolled}' >> log/update.log`
       lecture.enrolled = enrolled
-      update = true
-    end
-    if lecture.lecturer != lecturer
       lecture.lecturer = lecturer
-      update = true
-    end
-    if lecture.time != time
       lecture.time = time
-      update = true
-    end
-    if update
       lecture.save
     end
-  rescue
+  rescue ActiveRecord::RecordNotFound => e
     Lecture.create({
       id: id,
       subject_number: subject_number,
@@ -105,6 +96,11 @@ m = excel.to_matrix
       enrolled_capacity: enrolled_capacity,
       enrolled: enrolled,
     })
+  rescue => e
+    puts id
+    puts subject_number
+    puts lecture_number
+    puts e
   end
 end
 puts "total elapsed time: #{`date +%s.%N`.to_f - init_time}s"
