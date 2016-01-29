@@ -16,7 +16,7 @@ Ruby 2.2.4p240
 
 내용을 다음과 같이 수정한다
 
-    * * * * * /bin/bash -l -c 'cd /home/glglgozz/snujoob_server && bin/rails runner -e development '\''fetch/fetch.rb'\'' && bin/rails runner -e development '\''fetch/fetch.rb'\''' >& /dev/null
+    * * * * * /bin/bash -l -c 'cd /home/glglgozz/snujoob_server && bin/rails runner -e development '\''fetch/fetch.rb'\'' && bin/rails runner -e development '\''fetch/fetch.rb'\'''
 
 ## 환경설정
 
