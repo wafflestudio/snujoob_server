@@ -14,6 +14,19 @@ snujoob = YAML::load_file("config/snujoob.yml")||{}
 year = snujoob["year"]
 semester = snujoob["semester"] #1/S/2/W
 
+third_day = DateTime.strptime(snujoob["third_day"], '%Y-%m-%d %z')
+free_day = DateTime.strptime(snujoob["free_day"], '%Y-%m-%d %z')
+now = Time.now
+
+unless (1.days.ago third_day) < now and now <= (third_day + 4.days) or (1.days.ago free_day) < now and now < (free_day + 1.weeks)
+  # 변경 가능아니면
+  exit
+end
+if now.hour == 9
+  # 부하시간이면
+  exit
+end
+
 if !(year.to_i > 2010) then
   puts "First argument should be year"
   exit!

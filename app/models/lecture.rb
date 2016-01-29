@@ -18,17 +18,17 @@ class Lecture < ActiveRecord::Base
     free_day = DateTime.strptime(snujoob["free_day"], '%Y-%m-%d %z')
     now = Time.now
 
-    if (1.days.ago third_day) < now and now <= third_day + 3.days
+    if (1.days.ago third_day) < now and now <= (third_day + 3.days)
       # 변경 가능 (재학생만)
-      if 9 > now.hour or now.hour > 10
+      if 9 != now.hour
       # 부하시간이 아니고
         if enrolled < enrolled_capacity
           push
         end
       end
-    elsif 1.days.ago free_day < now and now < free_day + 1.weeks
+    elsif (1.days.ago free_day) < now and now < (free_day + 1.weeks)
       # 변경 가능 (모두)
-      if 9 > now.hour or now.hour > 10
+      if 9 != now.hour
       # 부하시간이 아니고
         if enrolled < whole_capacity
           push
