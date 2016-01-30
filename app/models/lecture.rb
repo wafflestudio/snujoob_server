@@ -24,6 +24,7 @@ class Lecture < ActiveRecord::Base
       # 부하시간이 아니고
         if enrolled < enrolled_capacity
           push
+          push_web
         end
       end
     elsif 1.days.ago free_day < now and now < free_day + 1.weeks
@@ -32,6 +33,7 @@ class Lecture < ActiveRecord::Base
       # 부하시간이 아니고
         if enrolled < whole_capacity
           push
+          push_web
         end
       end
     end
@@ -55,5 +57,9 @@ class Lecture < ActiveRecord::Base
     end
 
     response = gcm.send(reg_ids, options)
+  end
+
+  def push_web
+    WebsocketRails[:watch].trigger(:push, {lecture_id: id})
   end
 end

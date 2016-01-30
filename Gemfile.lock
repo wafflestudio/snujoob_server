@@ -57,7 +57,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.9.1)
     execjs (2.6.0)
-    faye-websocket (0.10.2)
+    faye-websocket (0.10.0)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     gcm (0.1.0)
@@ -192,6 +192,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
+  faye-websocket (= 0.10.0)
   gcm
   jbuilder (~> 2.0)
   jquery-rails

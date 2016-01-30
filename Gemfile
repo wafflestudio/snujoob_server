@@ -53,3 +53,4 @@ gem 'gcm'
 gem 'whenever'
 
 gem 'websocket-rails'
+gem 'faye-websocket', '0.10.0'

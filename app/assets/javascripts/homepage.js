@@ -60,7 +60,6 @@ function login(s, p){
       message.html('')
       $('#login-section').hide()
       $('#after-login').show()
-      y
       $('.student-id').html(student_id)
       setCookie('student_id', student_id, 7)
       setCookie('token', token, 7)
@@ -69,6 +68,27 @@ function login(s, p){
       message.html('로그인에 실패했습니다')
     }
   })
+}
+
+var socket = new WebSocketRails("ws://dev.wafflestudio.com:12000/websocket");
+var chan = socket.subscribe('watch')
+chan.bind('push', function(data){
+  pushed(data.lecture_id)
+})
+function pushed(lecture_id){
+  function inArray(id, list){
+    var i;
+    for (i = 0; i < list.length; i++)
+      if (list[i] == id) return true
+    return false
+  }
+  if (inArray(lecture_id, registered_list)){
+    link = '<a href="http://sugang.snu.ac.kr/sugang/co/co012.action">수강신청 페이지로 가기</a>'
+    sound = '<audio loop autoplay><source src="http://leeingnyo.me/repository/44f0f77e92596c0707bea55d1a079793cac50a28faa2b951c5adca0e37b0cb3e/wu.mp3" type="audio/mpeg"></audio>'
+    message.html('자리가 비었습니다! ' + link + sound)
+    $('#'+lecture_id).css('background', 'red')
+    var a = setInterval(function(){alert('자리가 비었습니다!'); clearInterval(a)}, 1 * 1000)
+  }
 }
 
 function get_user_info(){
@@ -86,7 +106,7 @@ function get_user_info(){
     index = 0
     tbody.html('')
     lectures.forEach(function (lecture, index){
-      var tr = '<tr>'
+      var tr = '<tr id="'+ lecture.id +'">'
         tr += '<td style="display: none;">'+ lecture.id +'</td>'
           registered_list[index++] = lecture.id
         tr += '<td>'+ lecture.subject_number + ' ' + lecture.lecture_number +'</td>'
