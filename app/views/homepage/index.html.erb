@@ -1,0 +1,63 @@
+<style>
+.reg .register {
+  display: none;
+}
+.unreg .unregister {
+  display: none;
+}
+</style>
+<p id="message"></p>
+<section id="login-section" style="display: none;">
+  <div>
+    <input name="student-id" placeholder="2015-xxxxx">
+  </div>
+  <div>
+    <input name="password" placeholder="password" type="password">
+  </div>
+  <div>
+    <button>login</button>
+  </div>
+</section>
+<section id="after-login" style="display: none;">
+  <h1>환영합니다 <span class="student-id"></span></h1>
+  <section id="user-info">
+    <h2>등록한 과목</h2>
+    <table id="registered-lectures">
+      <thead>
+        <tr>
+          <th style="display: none;"></th>
+          <th>번호</th>
+          <th>제목</th>
+          <th>교수</th>
+          <th>시간</th>
+          <th>정보</th>
+          <th>경쟁자수</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </section>
+  <section id="search-section">
+    <h2>검색</h2>
+    <input name="query" placeholder="컴개실 (과목명만 가능합니다)"><button>검색</button>
+    <table id="searched-lectures">
+      <thead>
+        <tr>
+          <th style="display: none;"></th>
+          <th>번호</th>
+          <th>제목</th>
+          <th>교수</th>
+          <th>시간</th>
+          <th>정보</th>
+          <th>경쟁자수</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </section>
+  <button id="logout">로그아웃</button>
+</section>
