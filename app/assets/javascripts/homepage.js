@@ -9,6 +9,7 @@ function auto_login(){
   if (student_id === '' || token === ''){
     message.html('로그인이 필요합니다')
     $('#login-section').show()
+    $('#join-section').show()
     return
   }
   var params = {'student_id': student_id}
@@ -30,14 +31,15 @@ function auto_login(){
     } else {
       message.html('로그인이 필요합니다')
       $('#login-section').show()
+      $('#join-section').show()
     }
   })
 }
 auto_login()
 
-$("#login-section button").click(function (){
-  var student_id = $('input[name=student-id]').val()
-  var password = $('input[name=password]').val()
+$("#login").click(function (){
+  var student_id = $('#login-section input[name=student-id]').val()
+  var password = $('#login-section input[name=password]').val()
   login(student_id, password);
 });
 function login(s, p){
@@ -59,6 +61,7 @@ function login(s, p){
       student_id = s
       message.html('')
       $('#login-section').hide()
+      $('#join-section').hide()
       $('#after-login').show()
       $('.student-id').html(student_id)
       setCookie('student_id', student_id, 7)
@@ -66,6 +69,36 @@ function login(s, p){
       get_user_info()
     } else {
       message.html('로그인에 실패했습니다')
+    }
+  })
+}
+
+$("#join").click(function (){
+  var student_id = $('#join-section input[name=student-id]').val()
+  var password = $('#join-section input[name=password]').val()
+  var password_confirm = $('#join-section input[name=password-confirm]').val()
+  join(student_id, password, password_confirm);
+});
+function join(s, p, c){
+  var pattern = /20[0-9]{2}-[12][0-9]{4}/;
+  if (s === '' || p === '' || p !== c || !pattern.test(s)){
+    message.html('입력하신 정보를 확인해주세요')
+    return;
+  }
+  var params = {'student_id': s, 'password': p}
+  $.ajax({
+    url: '/join',
+    type: 'post',
+    contentType: 'application/json',
+    data: JSON.stringify(params),
+    dataType: 'json',
+  }).done(function(data){
+    if (data.result){
+      message.html('회원가입에 성공하셨습니다')
+      $('#login-section input[name=student-id]').val(s)
+      $('.student-id').html(student_id)
+    } else {
+      message.html('회원가입에 실패하셨습니다 ' + data.message)
     }
   })
 }
@@ -237,7 +270,9 @@ $('#logout').click(function (){
   token = ''
   student_id = ''
   $('#login-section').show()
+  $('#join-section').show()
   $('#after-login').hide()
+  $('input').val('')
 })
 
 function setCookie(cname, cvalue, exdays) {
