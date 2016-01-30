@@ -1,0 +1,2 @@
+class PushController < ApplicationController
+end
