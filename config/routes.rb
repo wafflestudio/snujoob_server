@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post 'users/:student_id/watch' => 'users#watch'
   post 'users/:student_id/unwatch' => 'users#unwatch'
   post 'users/:student_id/update-gcm' => 'users#update_gcm'
+
+  root 'homepage#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
