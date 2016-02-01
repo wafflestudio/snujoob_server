@@ -20,7 +20,7 @@ class Lecture < ActiveRecord::Base
 
     if (1.days.ago third_day) < now and now <= (third_day + 3.days)
       # 변경 가능 (재학생만)
-      if 9 != now.hour
+      if 7 != now.hour
       # 부하시간이 아니고
         if enrolled < enrolled_capacity
           push
@@ -55,8 +55,10 @@ class Lecture < ActiveRecord::Base
     Watching.includes(:user).where(lecture_id: id, watch: true).each do |w|
       reg_ids << w.user.gcm_token
     end
-
-    response = gcm.send(reg_ids, options)
+    
+    if reg_ids.length > 0
+      response = gcm.send(reg_ids, options)
+    end
   end
 
   def push_web
