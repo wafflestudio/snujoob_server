@@ -1,7 +1,7 @@
 #coding:utf-8
 
 #수강편람을 긁어옴
-#인자 : year semester
+#인자 : 파일구분 과정구분
 require 'net/http'
 require 'roo'
 require 'roo-xls'
