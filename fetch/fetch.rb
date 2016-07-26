@@ -78,7 +78,7 @@ puts "update lectures"
 excel = Roo::Excel.new(xls_filename);
 m = excel.to_matrix
 
-4.upto(m.row_size-1) do |i|
+3.upto(m.row_size-1) do |i|
   subject_number = m[i,5]
   lecture_number = m[i,6]
   name = m[i,7]
