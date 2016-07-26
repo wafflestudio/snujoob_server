@@ -11,14 +11,14 @@ require 'yaml'
 
 init_time = `date +%s.%N`.to_f
 snujoob = YAML::load_file("config/snujoob.yml")||{}
-year = snujoob["year"]
-semester = snujoob["semester"] #1/S/2/W
+year = snujoob["year"].to_i
+semester = snujoob["semester"][0] #1/S/2/W
 
-third_day = DateTime.strptime(snujoob["third_day"], '%Y-%m-%d %z')
+release_day = DateTime.strptime(snujoob["release_day"], '%Y-%m-%d %z')
 free_day = DateTime.strptime(snujoob["free_day"], '%Y-%m-%d %z')
 now = Time.now
 
-unless (1.days.ago third_day) < now and now <= (third_day + 4.days) or (1.days.ago free_day) < now and now < (free_day + 1.weeks)
+unless (1.days.ago release_day) < now and now <= (release_day + 5.days) or (1.days.ago free_day) < now and now < (free_day + 1.weeks)
   # 변경 가능아니면
   exit
 end

@@ -14,11 +14,11 @@ class Lecture < ActiveRecord::Base
 
   def validate_push
     snujoob = YAML::load_file("config/snujoob.yml")||[]
-    third_day = DateTime.strptime(snujoob["third_day"], '%Y-%m-%d %z')
+    release_day = DateTime.strptime(snujoob["release_day"], '%Y-%m-%d %z')
     free_day = DateTime.strptime(snujoob["free_day"], '%Y-%m-%d %z')
     now = Time.now
 
-    if (1.days.ago third_day) < now and now <= (third_day + 3.days)
+    if (1.days.ago release_day) < now and now <= (release_day + 5.days)
       # 변경 가능 (재학생만)
       if 7 != now.hour
       # 부하시간이 아니고
