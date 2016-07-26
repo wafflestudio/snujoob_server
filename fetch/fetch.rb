@@ -38,7 +38,9 @@ end
 #download
 puts "Start fetching #{year}/#{semester}"
 
-xls_filename="#{Rails.root}/fetch/#{year}_#{semester}.xls"
+number = ARGV[0]||"0"
+course = ARGV[1]||""
+xls_filename="#{Rails.root}/fetch/#{year}_#{semester}_#{number}#{course}.xls"
 
 http = Net::HTTP.new('sugang.snu.ac.kr', 80)
 path="/sugang/cc/cc100excel.action"
@@ -56,7 +58,13 @@ when 'W'
   shtm = 'U000200002U000300002'
   shtm2 = '겨울학기'
 end
-data = "srchCond=1&pageNo=1&workType=EX&sortKey=&sortOrder=&srchOpenSchyy=#{year}&currSchyy=#{year}&srchOpenShtm=#{shtm}&srchCptnCorsFg=&srchOpenShyr=&srchSbjtCd=&srchSbjtNm=&srchOpenUpSbjtFldCd=&srchOpenSbjtFldCd=&srchOpenUpDeptCd=&srchOpenDeptCd=&srchOpenMjCd=&srchOpenSubmattFgCd=&srchOpenPntMin=&srchOpenPntMax=&srchCamp=&srchBdNo=&srchProfNm=&srchTlsnAplyCapaCntMin=&srchTlsnAplyCapaCntMax=&srchTlsnRcntMin=&srchTlsnRcntMax=&srchOpenSbjtTmNm=&srchOpenSbjtTm=&srchOpenSbjtTmVal=&srchLsnProgType=&srchMrksGvMthd="
+case course
+when 'U'
+  course = 'U040800001'
+when 'P'
+  course = 'U040800002'
+end
+data = "srchCond=1&pageNo=1&workType=EX&sortKey=&sortOrder=&srchOpenSchyy=#{year}&currSchyy=#{year}&srchOpenShtm=#{shtm}&srchCptnCorsFg=&srchOpenShyr=&srchSbjtCd=&srchSbjtNm=&srchOpenUpSbjtFldCd=&srchOpenSbjtFldCd=&srchOpenUpDeptCd=&srchOpenDeptCd=&srchOpenMjCd=&srchOpenSubmattFgCd=&srchOpenPntMin=&srchOpenPntMax=&srchCamp=&srchBdNo=&srchProfNm=&srchTlsnAplyCapaCntMin=&srchTlsnAplyCapaCntMax=&srchTlsnRcntMin=&srchTlsnRcntMax=&srchOpenSbjtTmNm=&srchOpenSbjtTm=&srchOpenSbjtTmVal=&srchLsnProgType=&srchMrksGvMthd=&srchOpenSubmattCorsFg=#{course}"
 res, data = http.post(path, data)
 
 open(xls_filename,"wb") do |file|
