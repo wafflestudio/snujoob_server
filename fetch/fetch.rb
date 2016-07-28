@@ -20,10 +20,12 @@ now = Time.now
 
 unless (1.days.ago release_day) < now and now <= (release_day + 5.days) or (1.days.ago free_day) < now and now < (free_day + 1.weeks)
   # 변경 가능아니면
+  puts '알림기간이 아닙니다'
   exit
 end
-if now.hour == 9
+if now.hour == 7
   # 부하시간이면
+  puts '부하시간입니다'
   exit
 end
 
