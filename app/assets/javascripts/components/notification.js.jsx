@@ -10,7 +10,7 @@ var Notification = React.createClass({
         alert(info)
         clearInterval(a)
       }, 1 * 1000)
-      this.setState({message: <span> <span>{info}</span> {link} {sound} </span>})
+      this.setState({message: <span> <span>{info + '노래는 못 꺼요... 새로고침 해주세요...'}</span> {link} {sound} </span>})
     }
   },
   getInitialState: function(){
