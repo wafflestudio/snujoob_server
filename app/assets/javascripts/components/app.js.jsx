@@ -120,6 +120,12 @@ var App = React.createClass({
     }
     return false
   },
+  getRegistered: function(id){
+    for (let i = 0; i < this.state.registeredList.length; i++){
+      if (this.state.registeredList[i].id === id) return this.state.registeredList[i]
+    }
+    return null
+  },
   register: function(id){
     var params = {'lecture_id': id}
     var token = this.state.token
@@ -189,7 +195,7 @@ var App = React.createClass({
     } else {
       main = (
         <section>
-          <Notification isRegistered={this.isRegistered} chan={chan} />
+          <Notification isRegistered={this.isRegistered} chan={chan} getRegistered={this.getRegistered} />
           <h1>환영합니다 {this.state.studentId}</h1>
           <UserInforSection lectures={this.state.registeredList} manageLectures={{
             isRegistered: this.isRegistered,
