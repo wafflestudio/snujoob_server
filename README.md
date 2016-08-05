@@ -38,4 +38,4 @@ Ruby 2.2.4p240
 
     config.redis_options = {host: 'your.host', port: '6379', password: [password]}
 
-`app/assets/javascripts/homepage.js`에서 웹소켓에 서비스할 호스트를 고친다... 나중에 고치겠다
+`app/assets/javascripts/components/app.js.jsx`에서 웹소켓에 서비스할 호스트를 고친다... 나중에 고치겠다
