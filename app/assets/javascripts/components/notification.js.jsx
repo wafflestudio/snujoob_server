@@ -14,12 +14,9 @@ var Notification = React.createClass({
     };
   },
   componentDidMount: function(){
-    console.log('bind')
-    console.log(this.props.chan)
     this.props.chan.bind('push', function(data){
       this.push(data.lecture_id)
     }.bind(this))
-    console.log(this.props.chan)
   },
   render: function(){
     return (
